@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* AUTOAID 360 Design System - Automotive & EV Mobility Platform
+All colors MUST be HSL. Brand colors: Blue #007BFF + Green #00C897
 */
 
 @layer base {
   :root {
+    /* Brand Colors - AUTOAID 360 */
+    --primary: 213 100% 50%; /* #007BFF - Trust Blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 213 100% 45%;
+    --primary-glow: 213 100% 70%;
+    
+    --secondary: 167 100% 39%; /* #00C897 - EV Green */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 167 100% 35%;
+    --secondary-glow: 167 100% 60%;
+    
+    /* Neutral Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --foreground: 220 13% 18%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 220 13% 18%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --popover-foreground: 220 13% 18%;
+    
+    --muted: 220 13% 97%;
+    --muted-foreground: 220 9% 46%;
+    
+    --accent: 220 13% 95%;
+    --accent-foreground: 220 13% 18%;
+    
+    /* Status Colors */
+    --success: 167 100% 39%; /* Same as secondary green */
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 43 96% 56%; /* Amber warning */
+    --warning-foreground: 220 13% 18%;
+    
+    --destructive: 0 72% 51%; /* Emergency red */
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 213 100% 50%;
+    
+    /* Design System */
+    --radius: 0.75rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-hover)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    --gradient-automotive: linear-gradient(180deg, hsl(var(--muted)) 0%, hsl(var(--background)) 100%);
+    
+    /* Shadows */
+    --shadow-primary: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-secondary: 0 10px 30px -10px hsl(var(--secondary) / 0.3);
+    --shadow-automotive: 0 20px 50px -20px hsl(220 13% 18% / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +130,71 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* AUTOAID 360 Component Styles */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-secondary text-white font-semibold py-4 px-8 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300;
+  }
+  
+  .btn-emergency {
+    @apply bg-destructive text-destructive-foreground font-bold py-3 px-6 rounded-lg hover:bg-red-600 shadow-lg animate-pulse;
+  }
+  
+  .card-service {
+    @apply bg-card border border-border rounded-xl p-6 hover:shadow-automotive transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-automotive {
+    background: var(--gradient-automotive);
+  }
+  
+  .shadow-automotive {
+    box-shadow: var(--shadow-automotive);
+  }
+  
+  .shadow-primary {
+    box-shadow: var(--shadow-primary);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  /* Floating WhatsApp Button */
+  .whatsapp-float {
+    @apply fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-50 hover:scale-110;
+  }
+  
+  /* Status badges */
+  .status-pending {
+    @apply bg-warning/10 text-warning border border-warning/20 px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-confirmed {
+    @apply bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-completed {
+    @apply bg-success/10 text-success border border-success/20 px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-cancelled {
+    @apply bg-destructive/10 text-destructive border border-destructive/20 px-3 py-1 rounded-full text-sm font-medium;
   }
 }
