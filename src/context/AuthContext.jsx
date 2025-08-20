@@ -50,28 +50,10 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true);
-      // Mock API call - replace with actual API when backend is ready
-      const mockResponse = {
-        data: {
-          token: 'mock_jwt_token_' + Date.now(),
-          user: {
-            id: '1',
-            name: 'John Doe',
-            email: email,
-            role: email.includes('admin') ? 'admin' : email.includes('mechanic') ? 'mechanic' : 'customer',
-            createdAt: new Date().toISOString(),
-          }
-        }
-      };
+      // Call real API
+      const response = await authAPI.login({ email, password });
 
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Uncomment when backend is ready:
-      // const response = await authAPI.login({ email, password });
-      const response = mockResponse;
-
-      const { token, user: userData } = response.data;
+      const { token, user: userData } = response.data.data;
       
       localStorage.setItem('autoaid_token', token);
       localStorage.setItem('autoaid_user', JSON.stringify(userData));
@@ -100,28 +82,10 @@ export const AuthProvider = ({ children }) => {
   const signup = async (userData) => {
     try {
       setLoading(true);
-      // Mock API call - replace with actual API when backend is ready
-      const mockResponse = {
-        data: {
-          token: 'mock_jwt_token_' + Date.now(),
-          user: {
-            id: Date.now().toString(),
-            name: userData.name,
-            email: userData.email,
-            role: 'customer',
-            createdAt: new Date().toISOString(),
-          }
-        }
-      };
+      // Call real API
+      const response = await authAPI.signup(userData);
 
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Uncomment when backend is ready:
-      // const response = await authAPI.signup(userData);
-      const response = mockResponse;
-
-      const { token, user: newUser } = response.data;
+      const { token, user: newUser } = response.data.data;
 
       localStorage.setItem('autoaid_token', token);
       localStorage.setItem('autoaid_user', JSON.stringify(newUser));

@@ -1,0 +1,28 @@
+{
+  "name": "autoaid360-server",
+  "version": "1.0.0",
+  "description": "AUTOAID 360 Backend - AI-ready roadside assistance & EV mobility platform",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "seed": "node seeder/seed.js"
+  },
+  "keywords": ["autoaid", "roadside-assistance", "ev-mobility", "api"],
+  "author": "AUTOAID 360 Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.0.3",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "cookie-parser": "^1.4.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2"
+  }
+}
